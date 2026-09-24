@@ -1,0 +1,4 @@
+add_executable(opp_bench opp_bench.cpp)
+target_link_libraries(opp_bench PRIVATE SummonSoftwareLabs::OpticalPathPlanner)
+opp_apply_strict_options(opp_bench)
+opp_stage_asan_runtime(opp_bench)

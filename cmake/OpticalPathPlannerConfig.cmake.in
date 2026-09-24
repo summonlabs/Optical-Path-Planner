@@ -1,0 +1,29 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+find_dependency(Threads)
+
+include("${CMAKE_CURRENT_LIST_DIR}/OpticalPathPlannerTargets.cmake")
+
+# Fail fast when the exported target is missing or misconfigured.
+if(NOT TARGET SummonSoftwareLabs::OpticalPathPlanner)
+  set(OpticalPathPlanner_FOUND FALSE)
+  set(OpticalPathPlanner_NOT_FOUND_MESSAGE
+      "OpticalPathPlanner package is corrupt: SummonSoftwareLabs::OpticalPathPlanner was not exported.")
+  return()
+endif()
+
+get_target_property(_opp_includes SummonSoftwareLabs::OpticalPathPlanner INTERFACE_INCLUDE_DIRECTORIES)
+if(NOT _opp_includes)
+  set(OpticalPathPlanner_FOUND FALSE)
+  set(OpticalPathPlanner_NOT_FOUND_MESSAGE
+      "OpticalPathPlanner package is corrupt: SummonSoftwareLabs::OpticalPathPlanner exposes no include directories.")
+  return()
+endif()
+
+set(OpticalPathPlanner_VERSION "@PROJECT_VERSION@")
+set(OpticalPathPlanner_PLANNING_RULE_VERSION "@PROJECT_VERSION_MAJOR@")
+set(OpticalPathPlanner_LIBRARY_TARGET "SummonSoftwareLabs::OpticalPathPlanner")
+
+check_required_components(OpticalPathPlanner)
