@@ -17,8 +17,7 @@ your work and license it to everyone under Apache 2.0.
   ctest --test-dir build -C Release --output-on-failure
   ```
 
-* Do not add wall-clock timeouts, sleeps, retry-until-green loops or fixed ports to any test. A
-  hanging test is a defect in the runtime, not something to work around. Cancellation and
+* Cancellation and
   concurrency tests must rendezvous on a logical condition — a flag the search itself sets, a service
   statistic, a signal — not on elapsed time.
 * Keep the outcome vocabulary honest. Never collapse `UNKNOWN`, `UNSUPPORTED`, `STALE`,
